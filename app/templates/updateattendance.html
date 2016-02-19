@@ -1,0 +1,17 @@
+<ul class="list-group">
+<li class="list-group-item" ng-repeat='u in usn_list'>
+	<div class="input-group">
+      <span class="input-group-addon">
+	<span class="label label-info">{{u.usn}}</span>
+	 
+	<input type = "checkbox" name='usn' ng-attr-id={{u.usn}}>
+	  </span>
+	</div>
+</li>
+	
+	
+
+
+
+</ul>
+<button type="button" class="btn btn-primary" ng-click = "usnselected()">Submit</button>
