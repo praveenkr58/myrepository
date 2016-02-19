@@ -1,0 +1,196 @@
+<style>
+.panel-body>.row>.col-lg-3{
+	border-right:3px solid #f5f5f5;
+}
+.glyphicon-ok{
+	font-size:30px;
+	color:green;
+}
+.badge{
+	font-size:20px;
+	background-color: #f8f8f8;
+	color:#22313F;
+}
+</style>
+
+
+<div class="container-fluid">
+	<div class="container-fluid" style="height:50px;padding:10px">
+<div class="row">
+                  <div class="col-sm-8" style="padding:0px">
+                        <img src="img/myDP.jpg" class="img-responsive img-rounded" style="max-height:30px;max-width:30px;margin-right:0px;display:inline">
+                        <h3 class="text-primary" style="color:#363636;left:50px;top:-50px;position:relative;padding:0px">Pranay V Kalro</h3>
+                        
+                  </div>
+
+                  <div class="col-sm-4" style="padding-left:0px;margin-left:0px">
+                     
+                  	<button type="button" class="btn btn-warning" style="line-height:10px;">Check Schedule</button>
+                  	<a href="#"><span class="glyphicon glyphicon-menu-hamburger" style="font-size:23px;margin-left:50px;color:#363636"></span></a>
+                  	<a href="#"><span class="glyphicon glyphicon-bell" style="font-size:23px;margin-left:50px;color:#363636"></span></a>
+
+
+                     
+
+                  </div>
+
+
+             </div>
+         </div>
+     <div class="jumbotron" style="margin-bottom:0px">
+   	
+   	   <div class="row" style="position:relative;top:10px">
+  <div class="col-lg-12">
+    <div class="input-group">
+      <div class="input-group-btn">
+         <div class="btn-group" uib-dropdown>
+      <button id="split-button" type="button" class="btn btn-default" uib-dropdown-toggle>Subject<span class="caret"></span></button>
+      
+      <ul uib-dropdown-menu role="menu" aria-labelledby="split-button">
+        <li role="menuitem"><a href="#">10cs71</a></li>
+        
+        <li class="divider"></li>
+        <li role="menuitem"><a href="#">10csl75</a></li>
+      </ul>
+    </div>
+ 
+      </div><!-- /btn-group -->
+      <input type="text" class="form-control" aria-label="..." placeholder="Enter student usn or full name">
+      <div class="input-group-btn">
+           <button type="button" class="btn btn-warning">Search</button>
+
+      </div>
+    </div><!-- /input-group -->
+  </div><!-- /.col-lg-10 -->
+  
+  
+</div><!-- /.row -->
+   	
+       
+
+   </div>   
+   <div class="jumbotron" style="background-color:#ffffff">
+        <div class="row">
+               <div class="col-lg-2" style="border-right:1px solid #f8f8f8">
+
+                   <img src='img/myDP.jpg' class='img-circle img-responsive' style="max-height:100px;max-width:100px"> 
+                   <h4>Pranay V Kalro</h4>
+                   <p class="text-muted" style="font-size:12px">1DS12CS067</p>
+                   <div class="page-header">
+                        <a href="#">Contact details</a>
+                   </div>
+                   <div class="contact-details">
+                        
+                        
+                        </p><span class="glyphicon glyphicon-earphone"></span>&nbsp 9741850461</p>
+                        <span class="glyphicon glyphicon-envelope">&nbsp<a>pkalro05@gmail.com</a>
+
+
+                   </div>
+
+
+               </div>
+               <div class="col-lg-8">
+               	<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title">Attendance</h3>
+  </div>
+  <div class="panel-body">
+  	<div class="col-lg-6">
+    <canvas id="line" class="chart chart-line" chart-data="data"
+  chart-labels="labels" chart-legend="true" chart-series="series"
+  chart-click="onClick" >
+</canvas> 
+</div>
+<div class="col-lg-6">
+        <canvas id="doughnut" class="chart chart-doughnut"
+  chart-data="data1" chart-labels="labels1">
+</canvas> 
+
+</div>
+
+  </div>
+</div>
+
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title">IA Marks</h3>
+  </div>
+  <div class="panel-body">
+    <div class="row">
+           <div class="col-lg-3">
+
+                     <h5>Internal Assessment 1</h5>
+                     <h2 class="text-success">25/25</h2>
+           </div>
+           <div class="col-lg-3">
+
+                     <h5>Internal Assessment 2</h5>
+                     <h2 class="text-warning">19/25</h2>
+           </div>
+           <div class="col-lg-3">
+                     <h5>Internal Assessment 3</h5>
+                     <h2 class="text-success">23/25</h2>
+
+           </div>
+           <div class="col-lg-3">
+                     <h5>Internal Assessment 4</h5>
+                     <h2 class="text-danger">0/25</h2>
+
+           </div>
+
+    </div>
+    <div class="well" style="border:none">
+
+            <h2 class="text-primary" style="text-align:center">Average = <span class="text-success">24</span>/25</h2>
+
+    </div>
+  </div>
+</div>
+
+
+
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title">Assignments</h3>
+  </div>
+  <div class="panel-body">
+   
+    <div class="well" ng-repeat="a in assignments" style="border:none">
+
+           <div class="row">
+                   <div class="col-lg-10">
+                         <span class="badge">{{a.assignmentname}}</span>
+                         <p class="text-muted">Submitted on:13/05/2015</p>
+                           
+                   </div>
+                   <div class="col-lg-2">
+                        
+                       <span class="glyphicon glyphicon-ok"></span>
+                  
+
+
+                   </div>
+
+           </div>
+
+    </div>
+  </div>
+</div>
+
+               </div>
+
+               <div class="col-lg-2">
+
+Hello
+
+               </div>
+
+
+
+        </div>
+
+   </div>      
+
+
+</div>
