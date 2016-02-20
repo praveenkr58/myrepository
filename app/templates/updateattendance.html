@@ -1,17 +1,143 @@
-<ul class="list-group">
-<li class="list-group-item" ng-repeat='u in usn_list'>
-	<div class="input-group">
-      <span class="input-group-addon">
-	<span class="label label-info">{{u.usn}}</span>
+<div class="container-fluid">
+
+
+<div class="container-fluid" style="height:50px;padding:10px">
+<div class="row">
+                  <div class="col-sm-8" style="padding:0px">
+                        <img src="img/myDP.jpg" class="img-responsive img-rounded" style="max-height:30px;max-width:30px;margin-right:0px;display:inline">
+                        <h3 class="text-primary" style="color:#363636;left:50px;top:-50px;position:relative;padding:0px">Pranay V Kalro</h3>
+                        
+                  </div>
+
+                  <div class="col-sm-4" style="padding-left:0px;margin-left:0px">
+                     
+                  	<button type="button" class="btn btn-warning" style="line-height:10px;">Check Schedule</button>
+                  	<a href="#"><span class="glyphicon glyphicon-menu-hamburger" style="font-size:23px;margin-left:50px;color:#363636"></span></a>
+                  	<a href="#"><span class="glyphicon glyphicon-bell" style="font-size:23px;margin-left:50px;color:#363636"></span></a>
+
+
+                     
+
+                  </div>
+
+
+             </div>
+         </div>
+     <div class="jumbotron" style="margin-bottom:0px">
+   	
+   	   <div class="row" style="position:relative;top:10px">
+  <div class="col-lg-12">
+    <div class="input-group">
+      <div class="input-group-btn">
+         <div class="btn-group" uib-dropdown>
+      <button id="split-button" type="button" class="btn btn-default" uib-dropdown-toggle>Subject<span class="caret"></span></button>
+      
+      <ul uib-dropdown-menu role="menu" aria-labelledby="split-button">
+        <li role="menuitem"><a href="#">10cs71</a></li>
+        
+        <li class="divider"></li>
+        <li role="menuitem"><a href="#">10csl75</a></li>
+      </ul>
+    </div>
+ 
+      </div><!-- /btn-group -->
+      <input type="text" class="form-control" aria-label="..." placeholder="Enter student usn or full name">
+      <div class="input-group-btn">
+           <button type="button" class="btn btn-warning">Search</button>
+
+      </div>
+    </div><!-- /input-group -->
+  </div><!-- /.col-lg-10 -->
+  
+  
+</div><!-- /.row -->
+   	
+       
+
+   </div>   
+
+<div class="jumbotron" style="background-color:#ffffff">
+<div class="row">
+	<div class="col-lg-2" style="border-right:2px solid #f8f8f8">
+
+
+                    
+                   <h4>OOMD</h4>
+                   <p class="text-muted" style="font-size:12px">Employee id</p>
+                   <div class="page-header">
+                        <a href="#">Subject details</a>
+                   </div>
+                   <div class="contact-details">
+                        
+                        
+                        <p><span class="glyphicon glyphicon-inbox"></span>&nbsp No. of classes</p>
+                        <p style="font-size:13px">14</p>
+                        <p><span class="glyphicon glyphicon-sort-by-alphabet"></span>&nbsp Subject code</p>
+                        <p style="font-size:13px">10cs71</p> 
+
+
+                   </div>
+
+
+
+   </div>
+   <div class="col-lg-8">
+      <div class="panel panel-danger" style="border-bottom:none">
+  <div class="panel-heading">
+    <h3 class="panel-title">7 A &nbsp &nbsp Subject : <span class="badge">10cs71</span></h3>
+  </div>
+  <div class="panel-body">
+       <ul class="list-group">
+             <li class="list-group-item" ng-repeat="u in usn_list" style="border-top:none;">
+                <div class="row">
+                	<div class="col-lg-2">
+                <img src='img/myDP.jpg' class="img-circle img-responsive" id='attendance-image' style="max-height:50px;max-width:50px">
+            </div>
+            <div class="col-lg-6" style="text-align:left">
+                <h4>{{u.name}}</h4>
+                <p class="text-muted">{{u.usn}}</p>
+             </div>   
+           
+            <div class="col-lg-4">
+             	<div class="checkbox">
+                     <label>
+                         <input type="checkbox" name='usn' ng-attr-id={{u.usn}} value="">
+                           
+                     </label>
+                 </div>
+              </div>   
+              
+   </div>
+             </li>
+
+
+       </ul>
+       <button type="button" class="btn btn-primary" ng-click = "usnselected()" style="width:100%;left:50%">Submit</button>
+
+  </div>
+</div>
+
+
+   </div>
+
+
+   <div class="col-lg-2">
+
+
+
+   </div>
+
+
+</div>	
+</div>
+</div>
+	<!---<div class="checkbox" ng-repeat="u in usn_list">
+  <label>
+    <input type="checkbox" name='usn' ng-attr-id={{u.usn}} value="">
+    {{u.usn}}
+  </label>
+</div>
 	 
-	<input type = "checkbox" name='usn' ng-attr-id={{u.usn}}>
-	  </span>
-	</div>
-</li>
-	
-	
 
-
-
-</ul>
 <button type="button" class="btn btn-primary" ng-click = "usnselected()">Submit</button>
+</div>-->

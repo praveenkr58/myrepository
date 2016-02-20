@@ -80,12 +80,30 @@ $scope.labels = ["January", "February", "March", "April", "May", "June", "July"]
   ];
     
 })
-.controller('HomeCtrl',function($scope){
-    
+.controller('HomeCtrl',function($scope,$location){
+    $scope.studentdetails = function(){
+               $location.path('/student-profile');
+    }
+    $scope.viewmarks = function(){
+           $location.path('/viewmarks');
+    }
+    $scope.attendance = function(){
+        $location.path('/updateattendance');
+    }
+
 
     
 })
-.controller('ViewMarksCtrl',function($scope){
+.controller('ViewMarksCtrl',function($scope,$http,$location){
+   $http.get('http://localhost:80/getmarks.php?subject_code=10cs71')
+          .then(function(result){
+               //console.log(result.data);
+               
+               $scope.usn_list = result.data;
+               console.log($scope.usn_list[0].name);
+          });
+$location.path('/viewmarks');
+           
 
 })
 .controller('UpdateMarksCtrl',function($scope){
@@ -101,7 +119,7 @@ $scope.labels = ["January", "February", "March", "April", "May", "June", "July"]
           	   //console.log(result.data);
           	   
                $scope.usn_list = result.data;
-               console.log($scope.usn_list[0].usn);
+               console.log($scope.usn_list[0].name);
           });
    $scope.usnselected = function()
    {
