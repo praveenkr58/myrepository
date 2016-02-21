@@ -5,14 +5,15 @@ angular.module('myApp', [
   'ngRoute',
    'ui.bootstrap',
    'ngAnimate',
-   'chart.js'
+   'chart.js',
+   'ngFileUpload'
 ]).
 config(['$routeProvider', function($routeProvider) {
 	$routeProvider.when('/studentattendance',{
           templateUrl:'templates/studentattendance.html',
           controller:'StudentAttendanceCtrl'
 	})
-	$routeProvider.when('/uploadassignments',{
+	$routeProvider.when('/uploadassignment',{
 		templateUrl:'templates/uploadassignment.html',
 		controller:'UploadAssignmentCtrl'
 	})
@@ -90,6 +91,9 @@ $scope.labels = ["January", "February", "March", "April", "May", "June", "July"]
     $scope.attendance = function(){
         $location.path('/updateattendance');
     }
+    $scope.uploadassignment = function(){
+      $location.path('/uploadassignment');
+    }
 
 
     
@@ -110,7 +114,7 @@ $location.path('/viewmarks');
 
 })
 .controller('UploadAssignmentCtrl',function($scope){
-
+          
 })
 .controller('UpdateAttendanceCtrl',function($scope,$http){
 	  $scope.usn_list = {};
@@ -190,6 +194,87 @@ $location.path('/viewmarks');
   $scope.ok = function () {
     $location.path('/hometest');
      $uibModalInstance.close($scope.selected.item);
+  };
+
+  $scope.cancel = function () {
+    $uibModalInstance.dismiss('cancel');
+  };
+})
+
+
+
+
+
+.controller('ModalAssignmentCtrl', function ($scope,$http, $uibModal, $log,Upload,$location) {
+
+  $scope.items = ['item1', 'item2', 'item3'];
+
+  $scope.animationsEnabled = true;
+   
+  $scope.open = function (size) {
+     console.log($scope.inputfile);
+    var modalInstance = $uibModal.open({
+      animation: $scope.animationsEnabled,
+      templateUrl: 'myModalAssignment.html',
+      controller: 'ModalInstanceCtrl2',
+      size: 'sm',
+      resolve: {
+        inputfile: function () {
+          return $scope.inputfile;
+        }
+      }
+    });
+    $scope.onFileSelect = function($files) {
+    //$files: an array of files selected, each file has name, size, and type.
+    for (var i = 0; i < $files.length; i++) {
+      var $file = $files[i];
+      Upload.upload({
+        url: '/templates',
+        file: $file,
+        progress: function(e){}
+      }).then(function(data, status, headers, config) {
+        // file is uploaded successfully
+        console.log(data);
+      }); 
+    }
+  }
+
+    modalInstance.result.then(function (selectedItem) {
+      $scope.selected = selectedItem;
+    }, function () {
+      $log.info('Modal dismissed at: ' + new Date());
+    });
+  };
+
+  $scope.toggleAnimation = function () {
+    $scope.animationsEnabled = !$scope.animationsEnabled;
+  };
+
+})
+.controller('ModalInstanceCtrl2', function ($scope,$http, $uibModalInstance, inputfile,$location) {
+
+  $scope.uploadFile = function(files) {
+   var fd = new FormData();
+   //Take the first selected file
+   fd.append("assignment", files[0]);
+
+   $http.post('http://localhost:80/upload_assignment.php', fd, {
+       withCredentials: true,
+       headers: {'Content-Type': undefined },
+       transformRequest: angular.identity
+   }).success(function(result){
+              //console.log(result.data);
+              $uibModalInstance.dismiss('cancel');
+              $location.path('/hometest');
+              console.log(result);
+         });
+
+};
+$scope.inputfile=inputfile;
+  $scope.ok = function () {
+    console.dir(inputfile);
+    $location.path('/hometest');
+     $uibModalInstance.close($scope.inputfile);
   };
 
   $scope.cancel = function () {
