@@ -57,9 +57,9 @@
     </div>
  
       </div><!-- /btn-group -->
-      <input type="text" class="form-control" aria-label="..." placeholder="Enter student usn or full name">
+      <input type="text" class="form-control" aria-label="..." placeholder="Enter student usn" ng-model="usn">
       <div class="input-group-btn">
-           <button type="button" class="btn btn-warning">Search</button>
+           <button type="button" class="btn btn-warning" ng-click="search()">Search</button>
 
       </div>
     </div><!-- /input-group -->
@@ -95,7 +95,7 @@
                <div class="col-lg-8">
                	<div class="panel panel-primary">
   <div class="panel-heading">
-    <h3 class="panel-title">Attendance</h3>
+    <h3 class="panel-title" ng-model="attendance">Attendance:{{student_details[0].attendance}}/{{student_details[0].total_classes}}</h3>
   </div>
   <div class="panel-body">
   	<div class="col-lg-6">
@@ -123,21 +123,21 @@
            <div class="col-lg-3">
 
                      <h5>Internal Assessment 1</h5>
-                     <h2 class="text-success">25/25</h2>
+                     <h2 class="text-success">{{student_details[0].ia1}}/25</h2>
            </div>
            <div class="col-lg-3">
 
                      <h5>Internal Assessment 2</h5>
-                     <h2 class="text-warning">19/25</h2>
+                     <h2 class="text-warning">{{student_details[0].ia2}}/25</h2>
            </div>
            <div class="col-lg-3">
                      <h5>Internal Assessment 3</h5>
-                     <h2 class="text-success">23/25</h2>
+                     <h2 class="text-success">{{student_details[0].ia3}}/25</h2>
 
            </div>
            <div class="col-lg-3">
                      <h5>Internal Assessment 4</h5>
-                     <h2 class="text-danger">0/25</h2>
+                     <h2 class="text-danger">{{student_details[0].ia4}}/25</h2>
 
            </div>
 

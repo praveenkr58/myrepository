@@ -25,10 +25,19 @@ config(['$routeProvider', function($routeProvider) {
 		templateUrl:'templates/viewmarks.html',
 		controller:'ViewMarksCtrl'
 	})
+  $routeProvider.when('/viewattendance',{
+    templateUrl:'templates/viewattendance.html',
+    controller:'ViewAttendanceCtrl'
+  })
 	$routeProvider.when('/updateattendance',{
 		templateUrl:'templates/updateattendance.html',
 		controller:'UpdateAttendanceCtrl'
 	})
+  $routeProvider.when('/classdetail',{
+    templateUrl:'templates/classdetail.html',
+    controller:'ClassDetailCtrl'
+  })
+  
   $routeProvider.when('/',{
     templateUrl:'templates/loginpage.html',
     controller:'ModalDemoCtrl'
@@ -52,8 +61,65 @@ config(['$routeProvider', function($routeProvider) {
 
     
 })
-.controller('StudentProfileCtrl',function($scope){
+
+.controller('ClassDetailCtrl',function($scope,$http,$location){
+
+    $scope.usn_list = {};
+        $http.get('http://localhost:80/getusn.php?subject_code=10cs71')
+          .then(function(result){
+               //console.log(result.data);
+               
+               $scope.usn_list = result.data;
+               console.log($scope.usn_list[0].name);
+          });
+    $scope.individualdetail = function(){
+           
+    }
     
+})
+.controller('ViewAttendanceCtrl',function($scope,$http){
+    
+   $scope.usn_list = {};
+        $http.get('http://localhost:80/getattendance.php?subject_code=10cs71')
+          .then(function(result){
+               //console.log(result.data);
+               
+               $scope.usn_list = result.data;
+              // console.log($scope.usn_list[0].name);
+          });
+    
+})
+.controller('StudentProfileCtrl',function($scope,$http){
+
+var usn = prompt("Please enter student usn");
+$scope.student_details={};
+//console.log("praveen");
+  
+//$scope.attendance={};
+
+  $http.get('http://localhost:80/student_details.php?subject_code=10cs71&usn='+usn)
+          .then(function(result){
+               //console.log(result.data);
+               
+               $scope.student_details = result.data;
+               console.log($scope.student_details[0].name);
+               console.log(JSON.stringify($scope.student_details));
+              // $scope.attendance = (parseInt($scope.student_details[0].attendance)/parseInt($scope.total_classes))*100;
+          });
+   
+$scope.search = function(){
+
+  $http.get('http://localhost:80/student_details.php?subject_code=10cs71&usn='+$scope.usn)
+          .then(function(result){
+               //console.log(result.data);
+               
+               $scope.student_details = result.data;
+               console.log($scope.student_details[0].ia1);
+              // $scope.attendance = (parseInt($scope.student_details[0].attendance)/parseInt($scope.total_classes))*100;
+          });
+
+}
+//$scope.attendance = (parseInt($scope.student_details[0].attendance)/parseInt($scope.total_classes))*100;
 $scope.labels = ["January", "February", "March", "April", "May", "June", "July"];
   $scope.series = ['Before IA 1', 'Before IA 2'];
   $scope.data = [
@@ -82,6 +148,8 @@ $scope.labels = ["January", "February", "March", "April", "May", "June", "July"]
     
 })
 .controller('HomeCtrl',function($scope,$location){
+   $scope.user={};
+    $scope.user.name = JSON.parse(window.localStorage.account).name;
     $scope.studentdetails = function(){
                $location.path('/student-profile');
     }
@@ -91,8 +159,14 @@ $scope.labels = ["January", "February", "March", "April", "May", "June", "July"]
     $scope.attendance = function(){
         $location.path('/updateattendance');
     }
+    $scope.viewattendance = function(){
+        $location.path('/viewattendance');
+    }
     $scope.uploadassignment = function(){
       $location.path('/uploadassignment');
+    }
+    $scope.classdetail = function(){
+      $location.path('/classdetail');
     }
 
 
@@ -153,7 +227,7 @@ $location.path('/viewmarks');
    }
 })
 .controller('ModalDemoCtrl', function ($scope, $uibModal, $log) {
-
+  $scope.user = {};
   $scope.items = ['item1', 'item2', 'item3'];
 
   $scope.animationsEnabled = true;
@@ -168,7 +242,13 @@ $location.path('/viewmarks');
       resolve: {
         items: function () {
           return $scope.items;
-        }
+        },
+         email:function(){
+          return $scope.email;
+         },
+         password:function(){
+          return $scope.password;
+         }
       }
     });
 
@@ -184,16 +264,37 @@ $location.path('/viewmarks');
   };
 
 })
-.controller('ModalInstanceCtrl', function ($scope, $uibModalInstance, items,$location) {
+.controller('ModalInstanceCtrl', function ($http,$scope, $uibModalInstance, items,$location,email,password) {
+  //$scope.email = items;
+  
+  //window.localStorage['account'] = $scope.user.email;
+  //console.log(window.localStorage['account']);
 
-  $scope.items = items;
-  $scope.selected = {
-    item: $scope.items[0]
-  };
+ 
+
+  $scope.email = email;
+   $scope.password=password;
+   
 
   $scope.ok = function () {
-    $location.path('/hometest');
-     $uibModalInstance.close($scope.selected.item);
+    $http.get('http://localhost:80/loginfacultyaccount.php?email='+$scope.email+'&password='+$scope.password)
+      .then(function(result){
+            console.log(result.data);
+             if(result.data[0]=="Invalid account"){
+                $scope.invalidaccountalert=true;
+               //alert("Invalid account");
+             }
+             else
+             {
+              window.localStorage.account= JSON.stringify(result.data[0]);
+              console.log(window.localStorage.account);
+              $location.path('/hometest');
+    $uibModalInstance.close($scope.email);
+             }
+      });
+    //console.log(window.localStorage.account);
+    
+   
   };
 
   $scope.cancel = function () {
@@ -258,7 +359,7 @@ $location.path('/viewmarks');
    //Take the first selected file
    fd.append("assignment", files[0]);
 
-   $http.post('http://localhost:80/upload_assignment.php', fd, {
+   $http.post('http://localhost:80/upload_assignment_new.php?assignment_name=sa&faculty_id=001&subject_code=10cs71&no_of_questions=5&submit_date=2016-02-13&upload_date=2016-02-01', fd, {
        withCredentials: true,
        headers: {'Content-Type': undefined },
        transformRequest: angular.identity
@@ -279,5 +380,8 @@ $scope.inputfile=inputfile;
 
   $scope.cancel = function () {
     $uibModalInstance.dismiss('cancel');
+    $location.path('/hometest');
   };
 })
+
+
